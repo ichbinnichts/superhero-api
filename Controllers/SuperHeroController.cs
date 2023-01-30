@@ -23,12 +23,24 @@ namespace SuperHeroAPI.Controllers
                     Place="Long Island"}
         };
         
+
+        //Get the list of heroes
         [HttpGet]
         public async Task<ActionResult<List<SuperHero>>> Get()
         {
             return Ok(heroes);
         }
 
+        //Get a single hero
+        [HttpGet("{id}")]
+        public async Task<ActionResult<SuperHero>> Get(int id)
+        {
+            var hero = heroes.Find(h => h.Id == id);
+            if (hero == null) { return BadRequest("Hero not found"); }
+            return Ok(hero);
+        }
+
+        //Post a hero to the list
         [HttpPost]
         public async Task<ActionResult<List<SuperHero>>> addHero(SuperHero hero)
         {
