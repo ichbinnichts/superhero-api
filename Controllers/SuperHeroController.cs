@@ -8,21 +8,21 @@ namespace SuperHeroAPI.Controllers
     {
         private static List<SuperHero> heroes = new List<SuperHero>
         {
-            new SuperHero { 
+            new SuperHero {
                     Id = 1,
                     Name = "Spider man",
                     FirstName= "Peter",
                     LastName="Parker",
                     Place="New York City" },
 
-            new SuperHero { 
+            new SuperHero {
                     Id = 2,
                     Name="Iron man",
                     FirstName="Tony",
                     LastName="Stark",
                     Place="Long Island"}
         };
-        
+
 
         //Get the list of heroes
         [HttpGet]
@@ -52,8 +52,8 @@ namespace SuperHeroAPI.Controllers
         [HttpPut]
         public async Task<ActionResult<SuperHero>> updateHero(SuperHero request)
         {
-            var hero = heroes.Find(h => h.Id==request.Id);
-            if(hero == null) { return BadRequest("Hero not found"); }
+            var hero = heroes.Find(h => h.Id == request.Id);
+            if (hero == null) { return BadRequest("Hero not found"); }
 
             hero.Name = request.Name;
             hero.FirstName = request.FirstName;
@@ -62,5 +62,17 @@ namespace SuperHeroAPI.Controllers
 
             return Ok(heroes);
         }
+
+        //Delete a hero
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<SuperHero>>> deleteHero(int id)
+        {
+            var hero = heroes.Find(h => h.Id == id);
+            if(hero == null) { return BadRequest("Hero not found"); }
+            heroes.Remove(hero);
+            return Ok(heroes);
+        }
+
     }
 }
