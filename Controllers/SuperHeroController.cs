@@ -7,7 +7,7 @@ namespace SuperHeroAPI.Controllers
     public class SuperHeroController : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<List<SuperHero>>> Get()
         {
             var heroes = new List<SuperHero>
             {
