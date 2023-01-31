@@ -24,6 +24,14 @@ namespace SuperHeroAPI.Controllers
         };
 
 
+        //Constructor
+
+        private readonly DataContext _context;
+        public SuperHeroController(DataContext context)
+        {
+            _context = context;
+        }
+
         //Get the list of heroes
         [HttpGet]
         public async Task<ActionResult<List<SuperHero>>> Get()
