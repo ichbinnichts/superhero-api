@@ -6,24 +6,7 @@ namespace SuperHeroAPI.Controllers
     [ApiController]
     public class SuperHeroController : Controller
     {
-        private static List<SuperHero> heroes = new List<SuperHero>
-        {
-            new SuperHero {
-                    Id = 1,
-                    Name = "Spider man",
-                    FirstName= "Peter",
-                    LastName="Parker",
-                    Place="New York City" },
-
-            new SuperHero {
-                    Id = 2,
-                    Name="Iron man",
-                    FirstName="Tony",
-                    LastName="Stark",
-                    Place="Long Island"}
-        };
-
-
+        
         //Constructor
 
         private readonly DataContext _context;
@@ -80,10 +63,13 @@ namespace SuperHeroAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<SuperHero>>> deleteHero(int id)
         {
-            var hero = heroes.Find(h => h.Id == id);
-            if(hero == null) { return BadRequest("Hero not found"); }
-            heroes.Remove(hero);
-            return Ok(heroes);
+            var dbHero = await _context.SuperHeroes.FindAsync(id);
+            if(dbHero == null) { return BadRequest("Hero not found"); }
+
+            _context.SuperHeroes.Remove(dbHero);
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.SuperHeroes.ToListAsync());
         }
 
     }
