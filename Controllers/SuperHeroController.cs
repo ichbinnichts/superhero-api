@@ -43,7 +43,7 @@ namespace SuperHeroAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<SuperHero>> Get(int id)
         {
-            var hero = heroes.Find(h => h.Id == id);
+            var hero = await _context.SuperHeroes.FindAsync(id);
             if (hero == null) { return BadRequest("Hero not found"); }
             return Ok(hero);
         }
