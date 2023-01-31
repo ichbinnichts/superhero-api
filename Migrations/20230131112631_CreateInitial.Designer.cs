@@ -11,7 +11,7 @@ using SuperHeroAPI.Data;
 namespace SuperHeroAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230130185331_CreateInitial")]
+    [Migration("20230131112631_CreateInitial")]
     partial class CreateInitial
     {
         /// <inheritdoc />
